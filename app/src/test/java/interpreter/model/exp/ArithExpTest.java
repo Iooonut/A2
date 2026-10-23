@@ -17,22 +17,22 @@ class ArithExpTest {
     private static IExp num(int n) { return new ValueExp(new IntValue(n));}
 
     @Test
-    void addOperator() throws MyException, ExpressionException {
+    void addOperator() throws MyException {
         IExp e = new ArithExp(ArithOp.ADD, num(1), num(2));
         assertEquals(new IntValue(3), e.eval(symTable));
     }
     @Test
-    void subOperator() throws MyException, ExpressionException {
+    void subOperator() throws MyException {
         IExp e = new ArithExp(ArithOp.SUB, num(1), num(2));
         assertEquals(new IntValue(-1), e.eval(symTable));
     }
     @Test
-    void mulOperator() throws MyException, ExpressionException {
+    void mulOperator() throws MyException {
         IExp e = new ArithExp(ArithOp.MUL, num(2), num(3));
         assertEquals(new IntValue(6), e.eval(symTable));
     }
     @Test
-    void divOperator() throws MyException, ExpressionException {
+    void divOperator() throws MyException {
         IExp e = new ArithExp(ArithOp.DIV, num(6), num(2));
         assertEquals(new IntValue(3), e.eval(symTable));
     }

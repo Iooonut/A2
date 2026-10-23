@@ -8,7 +8,7 @@ import interpreter.model.value.IValue;
 
 public record VarExp(String name) implements IExp{
     @Override
-    public IValue eval(IDictionary<String, IValue> symTable) throws MyException, ExpressionException {
+    public IValue eval(IDictionary<String, IValue> symTable) throws MyException {
         if(!(symTable.isDefined(name)))
             throw new ExpressionException("Variable: " + name + " is not declared.");
 

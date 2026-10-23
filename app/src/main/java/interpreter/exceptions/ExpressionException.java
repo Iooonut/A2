@@ -1,6 +1,6 @@
 package interpreter.exceptions;
 
-public class ExpressionException extends Throwable {
+public class ExpressionException extends MyException {
     public ExpressionException(String msg) {
         super(msg);
     }

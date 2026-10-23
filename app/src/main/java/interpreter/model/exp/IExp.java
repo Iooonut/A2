@@ -6,6 +6,6 @@ import interpreter.model.adt.IDictionary;
 import interpreter.model.value.IValue;
 
 public interface IExp {
-    IValue eval(IDictionary<String, IValue> symTable) throws MyException, ExpressionException;
+    IValue eval(IDictionary<String, IValue> symTable) throws MyException;
 }
 

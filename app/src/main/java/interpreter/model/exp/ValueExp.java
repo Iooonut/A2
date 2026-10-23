@@ -7,7 +7,7 @@ import interpreter.model.value.IValue;
 
 public record ValueExp(IValue value) implements IExp {
     @Override
-    public IValue eval(IDictionary<String, IValue> symTable) throws MyException, ExpressionException {
+    public IValue eval(IDictionary<String, IValue> symTable) throws MyException {
         return value;
     }
 }
