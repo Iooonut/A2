@@ -10,12 +10,12 @@ public record VarExp(String name) implements IExp{
     @Override
     public IValue eval(IDictionary<String, IValue> symTable) throws MyException, ExpressionException {
         if(!(symTable.isDefined(name)))
-            throw new ExpressionException("Variable:" + name + " is not declared.");
+            throw new ExpressionException("Variable: " + name + " is not declared.");
 
         try{
             return symTable.lookup(name);
         } catch (ADTException e) {
-            throw new ExpressionException("Variable:" + name + " is not declared.");
+            throw new ExpressionException("Variable: " + name + " is not declared.");
         }
     }
 }
