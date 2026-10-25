@@ -10,4 +10,8 @@ public record ValueExp(IValue value) implements IExp {
     public IValue eval(IDictionary<String, IValue> symTable) throws MyException {
         return value;
     }
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

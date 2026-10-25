@@ -18,4 +18,9 @@ public record VarExp(String name) implements IExp{
             throw new ExpressionException("Variable: " + name + " is not declared.");
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
