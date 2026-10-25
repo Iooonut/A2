@@ -16,7 +16,7 @@ public record AssignStmt(String id, IExp exp) implements IStmt {
         }
         IValue val = exp.eval(symTable);
         if(!(val.getType().equals(symTable.lookup(id).getType()))) {
-            throw new StatementException("Type of: " + id + "is different from declared type:" + symTable.lookup(id).getType());
+            throw new StatementException("Type of: " + id + " is different from declared type: " + symTable.lookup(id).getType());
         }
         symTable.update(id,val);
         return state;
