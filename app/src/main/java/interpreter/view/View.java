@@ -41,6 +41,7 @@ public class View {
         System.out.println("1. Ex1 : int v; v = 2; print(v)");
         System.out.println("2. Ex2 : int a; int b; a = 2 + 3 * 5; b = a + 1; print(b)");
         System.out.println("3. Ex3 : bool a; int v; a = true; (if a then v = 2 else v = 3); print(v)");
+        System.out.println("4. Ex4 : bool a; a = 2; print(a)");
         System.out.print("Select program: ");
 
         if (!scanner.hasNextLine()) {
@@ -51,6 +52,7 @@ public class View {
             case "1" -> Examples.ex1;
             case "2" -> Examples.ex2;
             case "3" -> Examples.ex3;
+            case "4" -> Examples.ex4;
             default -> null;
         };
 
