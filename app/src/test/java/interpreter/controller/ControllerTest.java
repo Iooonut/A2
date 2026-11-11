@@ -15,6 +15,7 @@ import interpreter.view.Examples;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,4 +66,40 @@ class ControllerTest {
         var ex = assertThrows(StatementException.class, () -> controller.oneStep(state));
         assertEquals("program stack is empty",ex.getMessage());
     }
+
+    @Test
+    void fileExampleReadsBothNumbersAndClosesFile() throws Exception {
+        Path input = dir.resolve("numbers.in");
+        Files.writeString(input, "15\n50\n");
+        PrgState state = run(Examples.fileExample(input.toString()));
+
+        assertEquals(2, state.getOut().size());
+        assertEquals(new IntValue(15), state.getOut().get(0));
+        assertEquals(new IntValue(50), state.getOut().get(1));
+        assertTrue(state.getFileTable().toMap().isEmpty());
+    }
+
+
+    @Test
+    void fileExampleWithEmptyFilePrintsTwoZeros() throws Exception {
+        Path input = dir.resolve("empty.in");
+        Files.writeString(input, "");
+        PrgState state = run(Examples.fileExample(input.toString()));
+
+        assertEquals(2, state.getOut().size());
+        assertEquals(new IntValue(0), state.getOut().get(0));
+        assertEquals(new IntValue(0),state.getOut().get(1));
+        assertTrue(state.getFileTable().toMap().isEmpty());
+    }
+
+
+    @Test
+    void relationalExamplePrintsFive() throws MyException {
+        PrgState state = run(Examples.ex5);
+
+        assertEquals(1, state.getOut().size());
+        assertEquals(new IntValue(5), state.getOut().get(0));
+    }
+
+
 }
