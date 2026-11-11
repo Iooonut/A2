@@ -70,12 +70,7 @@ public class View {
             return;
         }
 
-        PrgState state = new PrgState(
-                new MyStack<>(),
-                new MyDictionary<>(),
-                new MyList<>(),
-                selectedProgram
-        );
+        PrgState state = PrgState.of(selectedProgram);
 
         Controller controller = new Controller(
                 new Repository(state),

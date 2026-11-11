@@ -3,6 +3,8 @@ package interpreter.model.adt;
 import interpreter.exceptions.ADTException;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyStackTest {
@@ -25,4 +27,17 @@ class MyStackTest {
         assertThrows(ADTException.class, stack::pop);
     }
 
+    @Test
+    void toListPreservesStackOrder() {
+        IStack<Integer> stack = new MyStack<>();
+
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        assertEquals(
+                List.of(30, 20, 10),
+                stack.toList()
+        );
+    }
 }

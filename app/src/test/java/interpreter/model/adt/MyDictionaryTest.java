@@ -38,4 +38,21 @@ class MyDictionaryTest {
 
         assertThrows(ADTException.class,() -> dict.update(1,2));
     }
+
+    @Test
+    void removeDeletesExistingKey() throws ADTException {
+        IDictionary<String, Integer> dict = new MyDictionary<>();
+
+        dict.put("x", 10);
+        dict.remove("x");
+
+        assertFalse(dict.isDefined("x"));
+    }
+
+    @Test
+    void removeMissingKeyThrows() {
+        IDictionary<String, Integer> dict = new MyDictionary<>();
+
+        assertThrows(ADTException.class, () -> dict.remove("x"));
+    }
 }

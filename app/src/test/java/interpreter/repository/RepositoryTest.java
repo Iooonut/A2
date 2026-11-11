@@ -13,13 +13,7 @@ class RepositoryTest {
     @Test
     public void returnCorrectPrgState() {
 
-        PrgState state = new PrgState(
-                new MyStack<>(),
-                new MyDictionary<>(),
-                new MyList<>(),
-                new NopStmt()
-        );
-
+        PrgState state = PrgState.of(new NopStmt());
         IRepository repo = new Repository(state);
 
         assertSame(state, repo.getCrtPrg());

@@ -21,13 +21,7 @@ class AssignStmtTest {
     private PrgState state;
     @BeforeEach
     void setUp() throws MyException {
-        state = new PrgState(
-                new MyStack<>(),
-                new MyDictionary<>(),
-                new MyList<>(),
-                new NopStmt()
-        );
-
+        state = PrgState.of(new NopStmt());
         state.getExeStack().pop();
     }
 
