@@ -20,15 +20,15 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
-    private static PrgState run(IStmt program) throws MyException {
+    @TempDir
+    Path dir;
+
+    private PrgState run(IStmt program) throws MyException {
         PrgState state = PrgState.of(program);
-        Controller controller = new Controller(new Repository(state, "log1.txt"), false);
+        Controller controller = new Controller(new Repository(state, dir.resolve("log1.txt").toString()), false);
         controller.allStep();
         return state;
     }
-
-    @TempDir
-    Path dir;
 
     @Test
     void example1() throws MyException {
