@@ -73,7 +73,7 @@ public class View {
         PrgState state = PrgState.of(selectedProgram);
 
         Controller controller = new Controller(
-                new Repository(state),
+                new Repository(state, "log1.txt"),
                 true
         );
 

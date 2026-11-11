@@ -3,7 +3,7 @@ package interpreter.model.exp;
 public enum RelOp {
     LT("<"),
     LE("<="),
-    EQ("="),
+    EQ("=="),
     NE("!="),
     GT(">"),
     GE(">=");

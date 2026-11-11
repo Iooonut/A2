@@ -13,17 +13,22 @@ import interpreter.model.value.IntValue;
 import interpreter.repository.Repository;
 import interpreter.view.Examples;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
     private static PrgState run(IStmt program) throws MyException {
         PrgState state = PrgState.of(program);
-        Controller controller = new Controller(new Repository(state), false);
+        Controller controller = new Controller(new Repository(state, "log1.txt"), false);
         controller.allStep();
         return state;
     }
 
+    @TempDir
+    Path dir;
 
     @Test
     void example1() throws MyException {
@@ -54,7 +59,7 @@ class ControllerTest {
     void oneStepOnEmptyStackThrows() throws MyException {
         PrgState state = PrgState.of(new NopStmt());
 
-        Controller controller = new Controller(new Repository(state), false);
+        Controller controller = new Controller(new Repository(state, dir.resolve("log1.txt").toString()), false);
         state.getExeStack().pop();
 
         var ex = assertThrows(StatementException.class, () -> controller.oneStep(state));

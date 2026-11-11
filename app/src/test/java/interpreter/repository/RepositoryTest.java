@@ -14,7 +14,7 @@ class RepositoryTest {
     public void returnCorrectPrgState() {
 
         PrgState state = PrgState.of(new NopStmt());
-        IRepository repo = new Repository(state);
+        IRepository repo = new Repository(state, "log1.txt");
 
         assertSame(state, repo.getCrtPrg());
 
