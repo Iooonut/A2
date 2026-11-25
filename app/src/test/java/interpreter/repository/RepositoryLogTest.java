@@ -18,10 +18,8 @@ public class RepositoryLogTest {
     @Test
     void logContainsFourSectionsInOrder() throws Exception {
 
-        // Create the program state for Example 1
         PrgState state = PrgState.of(Examples.ex1);
 
-        // Create a log file inside the temporary directory
         Path logPath = dir.resolve("log.txt");
 
         Repository repo = new Repository(
@@ -29,11 +27,9 @@ public class RepositoryLogTest {
                 logPath.toString()
         );
 
-        // Run the program without console state displays
         Controller controller = new Controller(repo, false);
         controller.allStep();
 
-        // Read the generated log file
         String log = Files.readString(logPath);
 
         int a = log.indexOf("ExeStack:");
