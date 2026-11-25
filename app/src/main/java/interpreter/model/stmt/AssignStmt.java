@@ -11,10 +11,11 @@ public record AssignStmt(String id, IExp exp) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
         var symTable = state.getSymTable();
+        var heap = state.getHeap();
         if(!(symTable.isDefined(id))) {
             throw new StatementException("Variable " + id + " is not declared yet");
         }
-        IValue val = exp.eval(symTable);
+        IValue val = exp.eval(symTable, heap);
         if(!(val.getType().equals(symTable.lookup(id).getType()))) {
             throw new StatementException("Type of: " + id + " is different from declared type: " + symTable.lookup(id).getType());
         }

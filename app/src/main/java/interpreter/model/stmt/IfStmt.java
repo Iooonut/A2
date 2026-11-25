@@ -10,7 +10,8 @@ public record IfStmt(IExp cond, IStmt thenS, IStmt elseS) implements IStmt{
     @Override
     public PrgState execute(PrgState state) throws MyException {
         var symTable = state.getSymTable();
-        var e = cond.eval(symTable);
+        var heap = state.getHeap();
+        var e = cond.eval(symTable, heap);
         if (!(e instanceof BoolValue(boolean val))) {
             throw new StatementException("cond" + cond + "is not a boolean");
         }

@@ -3,6 +3,7 @@ package interpreter.model.exp;
 import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 import interpreter.model.adt.MyDictionary;
+import interpreter.model.adt.MyHeap;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class RelationalExpTest {
 
     private void check(RelOp op, int a, int b, boolean excepted) throws MyException {
         IExp exp = new RelationalExp(op, num(a), num(b));
-        assertEquals(new BoolValue(excepted), exp.eval(new MyDictionary<>()));
+        assertEquals(new BoolValue(excepted), exp.eval(new MyDictionary<>(), new MyHeap()));
     }
 
     @Test
@@ -59,13 +60,13 @@ class RelationalExpTest {
     @Test
     void nonIntegerLeftOperatorThrows() {
         IExp exp = new RelationalExp(RelOp.LT, new ValueExp(new BoolValue(true)), num(5));
-        assertThrows(ExpressionException.class, () -> exp.eval(new MyDictionary<>()));
+        assertThrows(ExpressionException.class, () -> exp.eval(new MyDictionary<>(), new MyHeap()));
     }
 
 
     @Test
     void nonIntegerRightOperatorThrows() {
         IExp exp = new RelationalExp(RelOp.LT, num(5), new ValueExp(new BoolValue(true)));
-        assertThrows(ExpressionException.class, () -> exp.eval(new MyDictionary<>()));
+        assertThrows(ExpressionException.class, () -> exp.eval(new MyDictionary<>(), new MyHeap()));
     }
 }

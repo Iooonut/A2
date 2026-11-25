@@ -1,16 +1,13 @@
 package interpreter.model.stmt;
 
-import interpreter.exceptions.ADTException;
 import interpreter.exceptions.MyException;
 import interpreter.exceptions.StatementException;
 import interpreter.model.PrgState;
-import interpreter.model.adt.*;
 import interpreter.model.exp.IExp;
 import interpreter.model.exp.ValueExp;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IType;
 import interpreter.model.type.IntType;
-import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,7 +59,7 @@ class AssignStmtTest {
 
         create.execute(state);
         assign.execute(state);
-        assertEquals(number.eval(state.getSymTable()),state.getSymTable().lookup(name));
+        assertEquals(number.eval(state.getSymTable(), state.getHeap()),state.getSymTable().lookup(name));
 
     }
 

@@ -2,9 +2,6 @@ package interpreter.model.stmt;
 
 import interpreter.exceptions.MyException;
 import interpreter.model.PrgState;
-import interpreter.model.adt.MyDictionary;
-import interpreter.model.adt.MyList;
-import interpreter.model.adt.MyStack;
 import interpreter.model.exp.IExp;
 import interpreter.model.exp.ValueExp;
 import interpreter.model.value.IntValue;
@@ -28,6 +25,6 @@ class PrintStmtTest {
 
         print.execute(state);
         assertEquals(1, state.getOut().size());
-        assertEquals(num.eval(state.getSymTable()), state.getOut().get(0));
+        assertEquals(num.eval(state.getSymTable(), state.getHeap()), state.getOut().get(0));
     }
 }
