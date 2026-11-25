@@ -36,9 +36,8 @@ public class RepositoryLogTest {
         int b = log.indexOf("SymTable:");
         int c = log.indexOf("Out:");
         int d = log.indexOf("FileTable:");
+        int e = log.indexOf("Heap:");
 
-        assertTrue(
-                0 <= a && a < b && b < c && c < d
-        );
+        assertTrue(0 <= a && a < b && b < c && c < d && d < e);
     }
 }

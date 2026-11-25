@@ -6,19 +6,22 @@ import interpreter.model.value.IValue;
 import interpreter.model.value.StringValue;
 
 import java.io.BufferedReader;
+import java.util.TreeMap;
 
 public class PrgState {
     private IStack<IStmt> exeStack;
     private IDictionary<String, IValue> symTable;
     private IList<IValue> out;
     private IDictionary<StringValue, BufferedReader> fileTable;
+    private IHeap heap;
     private final IStmt originalProgram;
 
-    public PrgState(IStack<IStmt> exeStack, IDictionary<String, IValue> symTable, IList<IValue> out, IDictionary<StringValue, BufferedReader> fileTable, IStmt program){
+    public PrgState(IStack<IStmt> exeStack, IDictionary<String, IValue> symTable, IList<IValue> out, IDictionary<StringValue, BufferedReader> fileTable, IHeap heap, IStmt program){
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
         this.fileTable = fileTable;
+        this.heap = heap;
         this.originalProgram = program;
         exeStack.push(program);
     }
@@ -29,6 +32,7 @@ public class PrgState {
                 new MyDictionary<>(),
                 new MyList<>(),
                 new MyDictionary<>(),
+                new MyHeap(),
                 program
         );
     }
@@ -47,6 +51,9 @@ public class PrgState {
 
         sb.append("FileTable:\n");
         fileTable.toMap().keySet().forEach(file -> sb.append(file.val()).append('\n'));
+
+        sb.append("Heap:\n");
+        new TreeMap<>(heap.getContent()).forEach((address, value) -> sb.append(address).append(" --> ").append(value).append('\n'));
 
         return sb.toString();
     }
@@ -85,7 +92,8 @@ public class PrgState {
         return "ExeStack: " + exeStack + "\n"
                 + "SymTable: " + symTable + "\n"
                 + "Out: " + out + "\n"
-                + "FileTable: " + fileTable.toMap().keySet();
+                + "FileTable: " + fileTable.toMap().keySet() + "\n"
+                + "Heap: " + heap;
     }
 
     public IDictionary<StringValue, BufferedReader> getFileTable() {
@@ -94,5 +102,13 @@ public class PrgState {
 
     public void setFileTable(IDictionary<StringValue, BufferedReader> fileTable) {
         this.fileTable = fileTable;
+    }
+
+    public IHeap getHeap() {
+        return heap;
+    }
+
+    public void setHeap(IHeap heap) {
+        this.heap = heap;
     }
 }
