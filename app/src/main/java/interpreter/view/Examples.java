@@ -4,6 +4,7 @@ import interpreter.model.exp.*;
 import interpreter.model.stmt.*;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.RefType;
 import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
@@ -76,13 +77,66 @@ public class Examples {
             )
     );
 
-    public static final IStmt ex6 = new CompStmt(new VarDeclStmt("a", new IntType()),
-            new CompStmt(new VarDeclStmt("b", new IntType()),
-                    new CompStmt(new VarDeclStmt("c", new BoolType()),
-                            new CompStmt(new AssignStmt("a", new ValueExp(new IntValue(1))),
-                                    new CompStmt(new AssignStmt("b", new ValueExp(new IntValue(2))),
-                                            new CompStmt(new AssignStmt("c", new RelationalExp(RelOp.NE,new VarExp("a"), new VarExp("b") )),
-                                                    new PrintStmt(new VarExp("c"))))))));
+    public static final IStmt ex6 = new CompStmt(new VarDeclStmt("v", new RefType(new IntType())),
+            new CompStmt(new NewStmt("v", new ValueExp(new IntValue(20))),
+                    new CompStmt(new VarDeclStmt("a", new RefType(new RefType(new IntType()))),
+                            new CompStmt(new NewStmt("a", new VarExp("v")),
+                                    new CompStmt(new PrintStmt(new VarExp("v")), new PrintStmt(new VarExp("a"))
+                                    )
+                            )
+                    )
+            )
+    );
+
+    public static final IStmt ex7 = new CompStmt(new VarDeclStmt("v", new RefType(new IntType())),
+            new CompStmt(new NewStmt("v", new ValueExp(new IntValue(20))),
+                    new CompStmt(new VarDeclStmt("a", new RefType(new RefType(new IntType()))),
+                            new CompStmt(new NewStmt("a", new VarExp("v")),
+                                    new CompStmt(new PrintStmt(new ReadHeapExp(new VarExp("v"))),
+                                            new PrintStmt(new ArithExp(ArithOp.ADD, new ReadHeapExp(new ReadHeapExp(new VarExp("a"))), new ValueExp(new IntValue(5))
+                                                    )
+                                            )
+                                    )
+                            )
+                    )
+            )
+    );
+
+    public static final IStmt ex8 = new CompStmt(new VarDeclStmt("v", new RefType(new IntType())),
+            new CompStmt(new NewStmt("v", new ValueExp(new IntValue(20))),
+                    new CompStmt(new PrintStmt(new ReadHeapExp(new VarExp("v"))),
+                            new CompStmt(new WriteHeapStmt("v", new ValueExp(new IntValue(30))),
+                                    new PrintStmt(new ArithExp(ArithOp.ADD, new ReadHeapExp(new VarExp("v")), new ValueExp(new IntValue(5))
+                                            )
+                                    )
+                            )
+                    )
+            )
+    );
+
+    public static final IStmt ex9 = new CompStmt(new VarDeclStmt("v", new RefType(new IntType())),
+            new CompStmt(new NewStmt("v", new ValueExp(new IntValue(20))),
+                    new CompStmt(new VarDeclStmt("a", new RefType(new RefType(new IntType()))),
+                            new CompStmt(new NewStmt("a", new VarExp("v")),
+                                    new CompStmt(new NewStmt("v", new ValueExp(new IntValue(30))),
+                                            new PrintStmt(new ReadHeapExp(new ReadHeapExp(new VarExp("a")
+                                                            )
+                                                    )
+                                            )
+                                    )
+                            )
+                    )
+            )
+    );
+
+    public static final IStmt ex10 = new CompStmt(new VarDeclStmt("v", new IntType()),
+            new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(4))),
+                    new CompStmt(new WhileStmt(new RelationalExp(RelOp.GT, new VarExp("v"), new ValueExp(new IntValue(0))),
+                            new CompStmt(new PrintStmt(new VarExp("v")), new AssignStmt("v", new ArithExp(ArithOp.SUB, new VarExp("v"), new ValueExp(new IntValue(1)))))),
+                            new PrintStmt(new VarExp("v"))
+                    )
+            )
+    );
 
 
 }

@@ -9,7 +9,10 @@ import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.stmt.IStmt;
 import interpreter.model.stmt.NopStmt;
+import interpreter.model.type.IntType;
+import interpreter.model.type.RefType;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.RefValue;
 import interpreter.repository.Repository;
 import interpreter.view.Examples;
 import org.junit.jupiter.api.Test;
@@ -17,6 +20,9 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -101,5 +107,47 @@ class ControllerTest {
         assertEquals(new IntValue(5), state.getOut().get(0));
     }
 
+    @Test
+    void example6AllocatesReferences() throws MyException {
+        PrgState state = run(Examples.ex6);
 
+        assertEquals(List.of(new RefValue(1, new IntType()), new RefValue(2, new RefType(new IntType()))), state.getOut().toList());
+        assertEquals(Map.of(1, new IntValue(20), 2, new RefValue(1, new IntType())), state.getHeap().getContent());
+        assertEquals(Map.of("v", new RefValue(1, new IntType()), "a", new RefValue(2, new RefType(new IntType()))), state.getSymTable().toMap());
+    }
+
+    @Test
+    void example7ReadsNestedReferences() throws MyException {
+        PrgState state = run(Examples.ex7);
+
+        assertEquals(List.of(new IntValue(20), new IntValue(25)), state.getOut().toList());
+        assertEquals(Map.of(1, new IntValue(20), 2, new RefValue(1, new IntType())), state.getHeap().getContent());
+        assertEquals(Map.of("v", new RefValue(1, new IntType()), "a", new RefValue(2, new RefType(new IntType()))), state.getSymTable().toMap());
+    }
+
+    @Test
+    void example8WritesHeapValue() throws MyException {
+        PrgState state = run(Examples.ex8);
+
+        assertEquals(List.of(new IntValue(20), new IntValue(35)), state.getOut().toList());
+        assertEquals(Map.of(1, new IntValue(30)), state.getHeap().getContent());
+        assertEquals(Map.of("v", new RefValue(1, new IntType())), state.getSymTable().toMap());
+    }
+
+    @Test
+    void example9PreservesIndirectReferences() throws MyException {
+        PrgState state = run(Examples.ex9);
+
+        assertEquals(List.of(new IntValue(20)), state.getOut().toList());
+        assertEquals(Set.of(1, 2, 3), state.getHeap().getContent().keySet());
+    }
+
+    @Test
+    void example10ExecutesWhileLoop() throws MyException {
+        PrgState state = run(Examples.ex10);
+
+        assertEquals(List.of(new IntValue(4), new IntValue(3), new IntValue(2), new IntValue(1), new IntValue(0)), state.getOut().toList());
+        assertEquals(new IntValue(0), state.getSymTable().lookup("v"));
+        assertTrue(state.getExeStack().isEmpty());
+    }
 }

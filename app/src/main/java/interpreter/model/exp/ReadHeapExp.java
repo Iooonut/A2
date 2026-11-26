@@ -1,10 +1,9 @@
-package interpreter.model.stmt;
+package interpreter.model.exp;
 
 import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 import interpreter.model.adt.IDictionary;
 import interpreter.model.adt.IHeap;
-import interpreter.model.exp.IExp;
 import interpreter.model.value.IValue;
 import interpreter.model.value.RefValue;
 

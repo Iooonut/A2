@@ -6,7 +6,6 @@ import interpreter.model.adt.IDictionary;
 import interpreter.model.adt.IHeap;
 import interpreter.model.adt.MyDictionary;
 import interpreter.model.adt.MyHeap;
-import interpreter.model.stmt.ReadHeapExp;
 import interpreter.model.type.IntType;
 import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
